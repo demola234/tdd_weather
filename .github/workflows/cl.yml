@@ -19,7 +19,8 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1.5.3
         with:
-          channel: "stable"
+          flutter_channel: stable
+          flutter_version: 3.0.0
       - name: Install dependencies
         run: flutter pub get
       - name: Build APK
