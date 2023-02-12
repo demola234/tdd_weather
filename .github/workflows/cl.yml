@@ -23,8 +23,8 @@ jobs:
       - name: Create a Release APK
         uses: ncipollo/release-action@v1
         with:
-         artifacts: "build/app/outputs/apk/debug/*.apk"
-         token: ${{ secrets.TOKEN }}
+          artifacts: "build/app/outputs/apk/debug/*.apk"
+          token: ${{ secrets.TOKEN }}
       - name: Run unit tests
         run: flutter test --coverage
       - name: Upload to code coverage
@@ -37,4 +37,3 @@ jobs:
         with:
           name: Test result screenshots
           path: screenshots/*.png
-
