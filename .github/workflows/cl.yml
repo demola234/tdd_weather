@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       - name: Build APK
-        run: flutter build apk --split-per-abi
+        run: flutter build apk debug --split-per-abi
       - name: Push to Releases
         uses: ncipollo/release-action@v1.10.0
         with:
