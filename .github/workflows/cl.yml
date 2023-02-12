@@ -18,6 +18,14 @@ jobs:
         run: flutter pub get
       - name: Run tests
         run: flutter test
+      - name: Build APK
+        run: flutter build apk --split-per-abi
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/debug/*.apk"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKEN }}
       - name: Run unit tests
         run: flutter test --coverage
       - name: Upload to code coverage
@@ -25,18 +33,3 @@ jobs:
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           file: coverage/lcov.info
-      - run: flutter build apk --debug --split-per-abi
-      - run: |
-          flutter build ios --no-codesign
-          cd build/ios/iphoneos
-          mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
-          zip -r app.ipa Payload
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
-          tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.TOKEN }}
