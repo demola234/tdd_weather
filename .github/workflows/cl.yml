@@ -11,13 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
       - uses: subosito/flutter-action@v1.5.3
         with:
           channel: "stable"
       - name: Install dependencies
         run: flutter pub get
-      - name: Run tests
-        run: flutter test
       - name: Build APK
         run: flutter build apk --split-per-abi
       - name: Push to Releases
@@ -25,6 +26,7 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/debug/*.apk"
           tag: v1.0.${{ github.run_number }}
+          commit: master
           token: ${{ secrets.TOKEN }}
       - name: Run unit tests
         run: flutter test --coverage
