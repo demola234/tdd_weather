@@ -29,9 +29,13 @@ void main() {
 
   void setUpMockHttpManager() {
     when(() => mockNetworkProvider.call(
-        path: EndpointManager.getWeather,
-        method: RequestMethod.get,
-        body: {"q": tCityName, "appid": apiKey})).thenAnswer((_) async {
+            path: EndpointManager.getWeather,
+            method: RequestMethod.get,
+            queryParams: {
+              "q": tCityName,
+              "appid": apiKey,
+              "units": "metric",
+            })).thenAnswer((_) async {
       return Response(
           requestOptions: RequestOptions(path: EndpointManager.getWeather),
           data: json.decode(fixture('weather.json')),
@@ -49,9 +53,13 @@ void main() {
     test("should throw ServerException when the call is unsuccessful",
         () async {
       when(() => mockNetworkProvider.call(
-          path: EndpointManager.getWeather,
-          method: RequestMethod.get,
-          body: {"q": tCityName, "appid": apiKey})).thenAnswer((_) async {
+              path: EndpointManager.getWeather,
+              method: RequestMethod.get,
+              queryParams: {
+                "q": tCityName,
+                "appid": apiKey,
+                "units": "metric",
+              })).thenAnswer((_) async {
         return Response(
             requestOptions: RequestOptions(path: EndpointManager.getWeather),
             data: json.decode(fixture('weather.json')),

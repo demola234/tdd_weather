@@ -38,7 +38,9 @@ dev_dependencies:
   injectable_generator: null
   json_serializable: ^6.3.1
   mockito: any
-  mocktail: any
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/

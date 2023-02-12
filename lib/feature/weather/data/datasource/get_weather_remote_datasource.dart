@@ -22,8 +22,12 @@ class GetWeatherRemoteDatasourceImpl implements GetWeatherRemoteDatasource {
     final response = await client.call(
         path: EndpointManager.getWeather,
         method: RequestMethod.get,
-        body: {"q": cityName, "appid": apiKey});
-    final res =  response!.data;
+        queryParams: {
+          "q": cityName,
+          "appid": apiKey,
+          "units": "metric",
+        });
+    final res = response!.data;
     if (response.statusCode == 200) {
       return WeatherEntity.fromJson(res);
     } else {
